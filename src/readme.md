@@ -1,6 +1,4 @@
-### `src/`
-The **`src/`** folder contains all the source code for the front-end application. 
-  
+The **`src/`** folder contains all the source code for the front-end application.   
 - **`home-interface/`**: Manages components and views for the home page or main kiosk interface. This includes the dashboard, navigation menus, and foundational UI elements for initiating user interactions.
   
 - **`research/`**: Handles UI and GUI components and pages related to Research and UNO Partners. This includes detailed views of research projects, partner information, and visualizations.
