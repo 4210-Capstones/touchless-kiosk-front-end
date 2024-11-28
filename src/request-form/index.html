@@ -1,6 +1,3 @@
-
-
-<!-- Request Form -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,18 +90,6 @@
             margin-left: 5px; /* Add space between the checkbox and label */
         }
 
-        /* Style for input fields */
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-
         /* Style for the submit button */
         button {
             background-color: #003366;
@@ -147,120 +132,121 @@
                 grid-template-columns: repeat(2, 1fr); /* Change to 2 columns on small screens */
             }
         }
-
-        .hidden{
-            display: none;
-        }
     </style>
 </head>
-    <!-- Request Form Section -->
-<form id="submissionForm" enctype="multipart/form-data">
-    <!-- Header image at the top of the form -->
-    <img src="header-image.png" alt="Header Image">
+<body>
+    <!-- Main form for user input -->
+    <form id="submissionForm" enctype="multipart/form-data">
+        <!-- Header image at the top of the form -->
+        <img src="header-image.png" alt="Header Image">
 
-    <!-- Form title -->
-    <h1>Request Form</h1>
-    
-    <!-- Name input field -->
-    <div class="form-group">
-        <label for="name">Name*:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-
-    <!-- Email input field -->
-    <div class="form-group">
-        <label for="email">Email*:</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    
-    <!-- Message textarea -->
-    <div class="form-group">
-        <label for="message">Message*:</label>
-        <textarea id="message" name="message" rows="4" required></textarea>
-    </div>
-
-    <!-- Group for the File Upload -->
-    <div class="form-group">
-        <label for="image">Attach Images:</label>
-        <input type="file" id="images" name="images" accept="image/*" multiple>
-    </div>
-
-    <!-- Group for Start Date and End Date -->
-    <div class="form-group">
-        <label for="start-date">Start Date*:</label>
-        <input type="date" id="start-date" name="start_date" required>
-    </div>
-    <div class="form-group">
-        <label for="end-date">End Date*:</label>
-        <input type="date" id="end-date" name="end_date" required>
-    </div>
-
-    <!-- Group for Tagging -->
-    <div class="form-group">
-        <label for="tags">Tags* (At least 1 Required):</label>
-        <div class="checkbox-grid">
-            <div>
-                <input type="checkbox" id="tag-acm" name="tags" value="acm">
-                <label for="tag-acm">ACM</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-acmw" name="tags" value="acmw">
-                <label for="tag-acmw">ACMW</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-ctf" name="tags" value="ctf">
-                <label for="tag-ctf">CTF</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-gdsc" name="tags" value="gdsc">
-                <label for="tag-gdsc">GDSC</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-icpc" name="tags" value="icpc">
-                <label for="tag-icpc">ICPC</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-ieee" name="tags" value="ieee">
-                <label for="tag-ieee">IEEE</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-igda" name="tags" value="igda">
-                <label for="tag-igda">IGDA</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-robotics" name="tags" value="robotics">
-                <label for="tag-robotics">Robotics</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-webdev" name="tags" value="webdev">
-                <label for="tag-webdev">WebDev</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-workshops" name="tags" value="workshops">
-                <label for="tag-workshops">Workshops</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-jobs" name="tags" value="jobs">
-                <label for="tag-jobs">Jobs</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-research" name="tags" value="research">
-                <label for="tag-research">Research</label>
-            </div>
-            <div>
-                <input type="checkbox" id="tag-hackathon" name="tags" value="hackathon">
-                <label for="tag-hackathon">Hackathon</label>
-            </div>
+        <!-- Form title -->
+		<h1>Request Form</h1>
+        
+        <!-- Name input field -->
+        <div class="form-group">
+            <label for="name">Name*:</label>
+            <input type="text" id="name" name="name" required>
         </div>
-    </div>
 
-    <!-- Submit button -->
-    <button type="button" id="submitButton" onclick="submitForm()">Submit</button>
-</form>
+        <!-- Email input field -->
+        <div class="form-group">
+            <label for="email">Email*:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+		
+        <!-- Message textarea -->
+		<div class="form-group">
+            <label for="message">Message*:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <!-- Group for the File Upload -->
+        <div class="form-group">
+            <label for="image">Attach Images:</label>
+            <!-- Old: <input type="file" id="image" name="image" accept="image/*"> -->
+            <input type="file" id="images" name="images" accept="image/*" multiple>
+        </div>
+
+        <!-- Group for Start Date and End Date, input type="date" defaults to YYYY-MM-DD format by default -->
+        <div class="form-group">
+            <label for="start-date">Start Date*:</label>
+            <!-- Input for selecting start date -->
+            <input type="date" id="start-date" name="start_date" required>
+        </div>
+        <div class="form-group">
+            <label for="end-date">End Date*:</label>
+            <!-- Input for selecting end date -->
+            <input type="date" id="end-date" name="end_date" required>
+        </div>
+
+        <!-- Group for Tagging -->
+        <!-- Clubs/Groups (from Discord): acm, acmw, ctf, gdsc, icpc, ieee, igda, robotics, webdev -->
+        <!-- Additional Tags: workshops, jobs, research,  -->
+        <div class="form-group">
+            <label for="tags">Tags* (At least 1 Required):</label>
+            <!-- Create a grid container -->
+            <div class="checkbox-grid">
+                <div>
+                    <input type="checkbox" id="tag-acm" name="tags" value="acm">
+                    <label for="tag-acm">ACM</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-acmw" name="tags" value="acmw">
+                    <label for="tag-acmw">ACMW</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-ctf" name="tags" value="ctf">
+                    <label for="tag-ctf">CTF</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-gdsc" name="tags" value="gdsc">
+                    <label for="tag-gdsc">GDSC</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-icpc" name="tags" value="icpc">
+                    <label for="tag-icpc">ICPC</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-ieee" name="tags" value="ieee">
+                    <label for="tag-ieee">IEEE</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-igda" name="tags" value="igda">
+                    <label for="tag-igda">IGDA</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-robotics" name="tags" value="robotics">
+                    <label for="tag-robotics">Robotics</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-webdev" name="tags" value="webdev">
+                    <label for="tag-webdev">WebDev</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-workshops" name="tags" value="workshops">
+                    <label for="tag-workshops">Workshops</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-jobs" name="tags" value="jobs">
+                    <label for="tag-jobs">Jobs</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-research" name="tags" value="research">
+                    <label for="tag-research">Research</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tag-hackathon" name="tags" value="hackathon">
+                    <label for="tag-hackathon">Hackathon</label>
+                </div>
+            </div>
+
+        <!-- Submit button that triggers the submitForm() function -->
+        <button type="button" id="submitButton" onclick="submitForm()">Submit</button>
+    </form>
 
     <!-- JavaScript for handling form submission -->
     <script>
-        
         // Asynchronous function to handle form submission
 		async function submitForm() {
 			// Get references to the form and submit button elements
@@ -288,14 +274,6 @@
                 return;
             }
 
-            // Add logged-in username (email) to the form data
-            if (loggedInUsername) {
-                formData.append('email', loggedInUsername); // Use username as email
-            } else {
-                alert('Error: You are not logged in.');
-                return;
-            }
-
             // Add the formatted dates to the FormData
             formData.set('start_date', startDate); // YYYY-MM-DD
             formData.set('end_date', endDate);
@@ -308,7 +286,7 @@
 
 			try {
 				// Send a POST request to the server with the form data
-				const response = await fetch('http://localhost:8000/submit', {
+				const response = await fetch('http://localhost:5000/submit', {
 					method: 'POST',
 					body: formData
 				});
@@ -335,44 +313,6 @@
 				submitButton.textContent = 'Submit';
 			}
 		}
-
-        // Store the username globally after login
-        let loggedInUsername = null;
-
-        async function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            // Sample endpoint (adjust to actual URL when testing)
-            const url = 'http://localhost:8000/login/';
-            const formData = new URLSearchParams();
-            formData.append('username', username);
-            formData.append('password', password);
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    // Store the token locally (for demonstration purposes)
-                    localStorage.setItem('access_token', data.access_token);
-                    loggedInUsername = username;
-                    // Hide login form and show the request form
-                    document.getElementById('loginForm').classList.add('hidden');
-                    document.getElementById('submissionForm').classList.remove('hidden');
-                } else {
-                    alert('Invalid username or password');
-                }
-            } catch (error) {
-                alert('Error: ' + error.message);
-            }
-        }
     </script>
 </body>
 </html>
