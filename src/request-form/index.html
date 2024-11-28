@@ -1,0 +1,378 @@
+
+
+<!-- Request Form -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<!-- Ensures proper rendering and touch zooming on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Form</title>
+    <!-- Added CSS styling for the page -->
+    <style>
+
+        /* Sets the default font and styles for the body, #000 for color gave the text a clunky look */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #666666;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Style for the main heading */
+        /* https://www.uno.edu/strategic-marketing/identity-standards
+        UNO Blue: #003366
+        UNO Silver: #666666 */
+        h1 {
+            text-align: center;
+            color: #003366;
+        }
+
+        /* Style for the form container */
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Style for the header image */
+		img {
+			max-width: 50%;
+			height:auto;
+			display: block;
+			margin: 0 auto 20px auto;
+			border-radius: 8px;
+		}
+
+        /* Style for all labels in the form */
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Style for text inputs, email inputs, text areas, and file uploads */
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        input[type="file"] {
+            width: 100%; /* Take full width of the container */
+            padding: 10px; /* Add padding INSIDE the fields */
+            margin-bottom: 15px; /* Add space below each field */
+            border: 1px solid #666666; /* Border color */
+            border-radius: 4px; /* Rounds the corners */
+            box-sizing: border-box; /* Include padding in width calculations */
+            font-size: 14px;
+        }
+
+        /* Prevent resizing of text areas */
+        textarea {
+            resize: none;
+        }
+
+        .checkbox-grid {
+            display: grid; /* Use CSS Grid layout */
+            grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width */
+            gap: 10px; /* Add spacing between grid items */
+        }
+
+        .checkbox-grid div {
+            display: flex; /* Align label and checkbox horizontally */
+            align-items: center; /* Center content vertically */
+        }
+
+        .checkbox-grid label {
+            margin-left: 5px; /* Add space between the checkbox and label */
+        }
+
+        /* Style for input fields */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        /* Style for the submit button */
+        button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Change the button color on hover (make this brighter than the regular button color imo) */
+        button:hover {
+            background-color: #0064A8;
+        }
+
+        /* Style for disabled buttons */
+        button:disabled {
+            background-color: #666666;
+            cursor: not-allowed;
+        }
+
+        /* Style for spacing between form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive styling for smaller screens */
+        @media (max-width: 600px) {
+            form {
+                padding: 15px; /* Reduce padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 1.5em; /* Smaller heading size */
+            }
+
+            .checkbox-grid {
+                grid-template-columns: repeat(2, 1fr); /* Change to 2 columns on small screens */
+            }
+        }
+
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+    <!-- Request Form Section -->
+<form id="submissionForm" enctype="multipart/form-data">
+    <!-- Header image at the top of the form -->
+    <img src="header-image.png" alt="Header Image">
+
+    <!-- Form title -->
+    <h1>Request Form</h1>
+    
+    <!-- Name input field -->
+    <div class="form-group">
+        <label for="name">Name*:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <!-- Email input field -->
+    <div class="form-group">
+        <label for="email">Email*:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    
+    <!-- Message textarea -->
+    <div class="form-group">
+        <label for="message">Message*:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+
+    <!-- Group for the File Upload -->
+    <div class="form-group">
+        <label for="image">Attach Images:</label>
+        <input type="file" id="images" name="images" accept="image/*" multiple>
+    </div>
+
+    <!-- Group for Start Date and End Date -->
+    <div class="form-group">
+        <label for="start-date">Start Date*:</label>
+        <input type="date" id="start-date" name="start_date" required>
+    </div>
+    <div class="form-group">
+        <label for="end-date">End Date*:</label>
+        <input type="date" id="end-date" name="end_date" required>
+    </div>
+
+    <!-- Group for Tagging -->
+    <div class="form-group">
+        <label for="tags">Tags* (At least 1 Required):</label>
+        <div class="checkbox-grid">
+            <div>
+                <input type="checkbox" id="tag-acm" name="tags" value="acm">
+                <label for="tag-acm">ACM</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-acmw" name="tags" value="acmw">
+                <label for="tag-acmw">ACMW</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-ctf" name="tags" value="ctf">
+                <label for="tag-ctf">CTF</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-gdsc" name="tags" value="gdsc">
+                <label for="tag-gdsc">GDSC</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-icpc" name="tags" value="icpc">
+                <label for="tag-icpc">ICPC</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-ieee" name="tags" value="ieee">
+                <label for="tag-ieee">IEEE</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-igda" name="tags" value="igda">
+                <label for="tag-igda">IGDA</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-robotics" name="tags" value="robotics">
+                <label for="tag-robotics">Robotics</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-webdev" name="tags" value="webdev">
+                <label for="tag-webdev">WebDev</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-workshops" name="tags" value="workshops">
+                <label for="tag-workshops">Workshops</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-jobs" name="tags" value="jobs">
+                <label for="tag-jobs">Jobs</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-research" name="tags" value="research">
+                <label for="tag-research">Research</label>
+            </div>
+            <div>
+                <input type="checkbox" id="tag-hackathon" name="tags" value="hackathon">
+                <label for="tag-hackathon">Hackathon</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="button" id="submitButton" onclick="submitForm()">Submit</button>
+</form>
+
+    <!-- JavaScript for handling form submission -->
+    <script>
+        
+        // Asynchronous function to handle form submission
+		async function submitForm() {
+			// Get references to the form and submit button elements
+			const form = document.getElementById('submissionForm');
+    		const submitButton = document.getElementById('submitButton');
+
+			// Create a FormData object from the form element
+    		const formData = new FormData(form);
+            const checkboxes = document.querySelectorAll('input[name="tags"]');
+            const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if (!isAnyChecked) {
+                alert('Please select at least one tag.');
+                return;
+            }
+
+
+            // Format the Start and End dates
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            // Validate that start date is not after end date
+            if (new Date(startDate) > new Date(endDate)) {
+                alert("Start date cannot be later than the end date.");
+                return;
+            }
+
+            // Add logged-in username (email) to the form data
+            if (loggedInUsername) {
+                formData.append('email', loggedInUsername); // Use username as email
+            } else {
+                alert('Error: You are not logged in.');
+                return;
+            }
+
+            // Add the formatted dates to the FormData
+            formData.set('start_date', startDate); // YYYY-MM-DD
+            formData.set('end_date', endDate);
+
+
+			// Disable the submit button to prevent multiple clicks
+			submitButton.disabled = true;
+			// Change the button text to indicate the submission is in progress
+    		submitButton.textContent = 'Submitting...';
+
+			try {
+				// Send a POST request to the server with the form data
+				const response = await fetch('http://localhost:8000/submit', {
+					method: 'POST',
+					body: formData
+				});
+
+				// Check if the response is successful
+				if (response.ok) {
+					// Parse the JSON response from the server
+					const responseData = await response.json();  // Parse JSON response
+					// Alert the user that the form was submitted successfully
+					alert(`Form submitted successfully!`);
+					// Reset the form fields to their default values
+					form.reset();
+				} else {
+					// Alert the user that the submission failed
+					alert('Failed to submit form.');
+				}
+			} catch (error) {
+				// Catch any network or server errors and alert the user
+				alert('Error: ' + error.message);
+			} finally{
+				// Re-enable the submit button regardless of success or failure
+				submitButton.disabled = false;
+				// Reset the button text to its original state
+				submitButton.textContent = 'Submit';
+			}
+		}
+
+        // Store the username globally after login
+        let loggedInUsername = null;
+
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Sample endpoint (adjust to actual URL when testing)
+            const url = 'http://localhost:8000/login/';
+            const formData = new URLSearchParams();
+            formData.append('username', username);
+            formData.append('password', password);
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Store the token locally (for demonstration purposes)
+                    localStorage.setItem('access_token', data.access_token);
+                    loggedInUsername = username;
+                    // Hide login form and show the request form
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('submissionForm').classList.remove('hidden');
+                } else {
+                    alert('Invalid username or password');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
