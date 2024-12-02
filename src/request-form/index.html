@@ -145,19 +145,19 @@
         
         <!-- Name input field -->
         <div class="form-group">
-            <label for="name">Name*:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
         </div>
 
         <!-- Email input field -->
         <div class="form-group">
-            <label for="email">Email*:</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
         </div>
 		
         <!-- Message textarea -->
 		<div class="form-group">
-            <label for="message">Message*:</label>
+            <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4" required></textarea>
         </div>
 
@@ -170,12 +170,12 @@
 
         <!-- Group for Start Date and End Date, input type="date" defaults to YYYY-MM-DD format by default -->
         <div class="form-group">
-            <label for="start-date">Start Date*:</label>
+            <label for="start-date">Start Date:</label>
             <!-- Input for selecting start date -->
             <input type="date" id="start-date" name="start_date" required>
         </div>
         <div class="form-group">
-            <label for="end-date">End Date*:</label>
+            <label for="end-date">End Date:</label>
             <!-- Input for selecting end date -->
             <input type="date" id="end-date" name="end_date" required>
         </div>
@@ -249,70 +249,50 @@
     <script>
         // Asynchronous function to handle form submission
 		async function submitForm() {
-			// Get references to the form and submit button elements
-			const form = document.getElementById('submissionForm');
-    		const submitButton = document.getElementById('submitButton');
+            const form = document.getElementById('submissionForm');
+            const submitButton = document.getElementById('submitButton');
+            const formData = new FormData(form);
 
-			// Create a FormData object from the form element
-    		const formData = new FormData(form);
-            const checkboxes = document.querySelectorAll('input[name="tags"]');
-            const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-            if (!isAnyChecked) {
+            // Collect checkbox values manually (without duplicates)
+            const checkboxes = document.querySelectorAll('input[name="tags"]:checked');
+            if (checkboxes.length === 0) {
                 alert('Please select at least one tag.');
                 return;
             }
 
+            // Append each selected tag to the formData object
+            const uniqueTags = new Set();
+            checkboxes.forEach((checkbox) => {
+                uniqueTags.add(checkbox.value);
+            });
+            uniqueTags.forEach((tag) => {
+                formData.append('tags', tag);
+            });
 
-            // Format the Start and End dates
-            const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
 
-            // Validate that start date is not after end date
-            if (new Date(startDate) > new Date(endDate)) {
-                alert("Start date cannot be later than the end date.");
-                return;
+            try {
+                const response = await fetch('http://localhost:8000/imgrequestform/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    alert(`Form submitted successfully!`);
+                    form.reset();
+                } else {
+                    alert('Failed to submit form.');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit';
             }
+        }
 
-            // Add the formatted dates to the FormData
-            formData.set('start_date', startDate); // YYYY-MM-DD
-            formData.set('end_date', endDate);
-
-
-			// Disable the submit button to prevent multiple clicks
-			submitButton.disabled = true;
-			// Change the button text to indicate the submission is in progress
-    		submitButton.textContent = 'Submitting...';
-
-			try {
-				// Send a POST request to the server with the form data
-				const response = await fetch('http://localhost:5000/submit', {
-					method: 'POST',
-					body: formData
-				});
-
-				// Check if the response is successful
-				if (response.ok) {
-					// Parse the JSON response from the server
-					const responseData = await response.json();  // Parse JSON response
-					// Alert the user that the form was submitted successfully
-					alert(`Form submitted successfully!`);
-					// Reset the form fields to their default values
-					form.reset();
-				} else {
-					// Alert the user that the submission failed
-					alert('Failed to submit form.');
-				}
-			} catch (error) {
-				// Catch any network or server errors and alert the user
-				alert('Error: ' + error.message);
-			} finally{
-				// Re-enable the submit button regardless of success or failure
-				submitButton.disabled = false;
-				// Reset the button text to its original state
-				submitButton.textContent = 'Submit';
-			}
-		}
     </script>
 </body>
 </html>

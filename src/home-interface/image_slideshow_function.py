@@ -1,3 +1,4 @@
+from pathlib import Path
 import pygame
 import sys
 import time
@@ -111,10 +112,10 @@ def display_slideshow(folder_path, metadata_file, display_time=3, refresh_interv
 if __name__ == "__main__":
     # Path to the folder containing the flyer images
     # THIS NEEDS TO BE CHANGED TO THE APPROPRIATE DIRECTORY FOR THE KIOSK
-    folder_path = r"c:/Users/ace21/OneDrive/Pictures/Flyers"
+    folder_path = Path("../../images").resolve()
     
     # THIS NEEDS TO BE CHANGED TO THE APPROPRIATE DIRECTORY FOR THE KIOSK
-    metadata_file = r"c:/Users/ace21/OneDrive/Pictures/flyer_metadata.json"
+    metadata_file = folder_path / "flyer_metadata.json"
 
     # Ensure the metadata file exists (create it if necessary)
     initialize_metadata_file(metadata_file)
