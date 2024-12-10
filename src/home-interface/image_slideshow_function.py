@@ -84,14 +84,43 @@ def display_slideshow(folder_path, metadata_file, display_time=3, refresh_interv
         flyers = load_flyers_from_folder(folder_path, metadata_file)
         image_paths = [flyer["image_path"] for flyer in flyers]  # Get the paths of valid images
 
+        if not image_paths:
+            # If no valid flyers are found, display a placeholder message
+            screen.fill((0, 0, 0))  # Fill screen with black
+            font = pygame.font.Font(None, 50)  # Default font and size
+            text_surface = font.render("No valid flyers available", True, (255, 255, 255))
+            text_rect = text_surface.get_rect(center=screen.get_rect().center)
+            screen.blit(text_surface, text_rect)  # Center text
+            pygame.display.flip()
+            time.sleep(refresh_interval)  # Wait before checking for new flyers
+            continue
+
         for image_path in image_paths:
             try:
                 # Load and display the image
                 image = pygame.image.load(image_path)  # Load the image file
-                screen_size = screen.get_size()  # Get the screen size
-                image = pygame.transform.scale(image, screen_size)  # Scale the image to fit the screen
-                screen.blit(image, (0, 0))  # Display the image on the screen
-                pygame.display.flip()  # Update the display to show the new image
+                image_width, image_height = image.get_size()
+                # Get screen size
+                screen_size = screen.get_size()  # (screen_width, screen_height)
+
+                # Calculate scaling factors
+                width_scale = screen_size[0] / image_width
+                height_scale = screen_size[1] / image_height
+                scale_factor = min(width_scale, height_scale)
+
+                # Calculate new dimensions while maintaining aspect ratio
+                new_width = int(image_width * scale_factor)
+                new_height = int(image_height * scale_factor)
+
+                scaled_image = pygame.transform.scale(image, (new_width, new_height)) # Scale the image to fit the screen
+
+                x_offset = (screen_size[0] - new_width) // 2
+                y_offset = (screen_size[1] - new_height) // 2
+
+                # Display the image
+                screen.fill((0, 0, 0))  # Fill the screen with black before displaying the image
+                screen.blit(scaled_image, (x_offset, y_offset))  # Center the image
+                pygame.display.flip()  # Update the display
 
                 # Wait for the display time before switching to the next image
                 start_time = time.time()  # Get the current time
@@ -111,10 +140,10 @@ def display_slideshow(folder_path, metadata_file, display_time=3, refresh_interv
 if __name__ == "__main__":
     # Path to the folder containing the flyer images
     # THIS NEEDS TO BE CHANGED TO THE APPROPRIATE DIRECTORY FOR THE KIOSK
-    folder_path = r"c:/Users/ace21/OneDrive/Pictures/Flyers"
+    folder_path = r"C:/Users/alext/Desktop/coding stuff/slideshow/flyers"
     
     # THIS NEEDS TO BE CHANGED TO THE APPROPRIATE DIRECTORY FOR THE KIOSK
-    metadata_file = r"c:/Users/ace21/OneDrive/Pictures/flyer_metadata.json"
+    metadata_file = r"C:/Users/alext/Desktop/coding stuff/slideshow/flyer_metadata.json"
 
     # Ensure the metadata file exists (create it if necessary)
     initialize_metadata_file(metadata_file)
